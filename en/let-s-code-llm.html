@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2024-02-02T15:24:54.212528"><title>Let&apos;s Code LLM | LLM: From Zero to Hero</title><script type="application/json" id="virtual-toc-data">[{"id":"prepare-the-environment","level":0,"title":"Prepare the Environment","anchor":"#prepare-the-environment"},{"id":"setup-hyperparameters","level":0,"title":"Setup Hyperparameters","anchor":"#setup-hyperparameters"},{"id":"prepare-the-dataset","level":0,"title":"Prepare the Dataset","anchor":"#prepare-the-dataset"},{"id":"step-1-tokenization","level":0,"title":"Step 1: Tokenization","anchor":"#step-1-tokenization"},{"id":"step-2-word-embedding","level":0,"title":"Step 2: Word Embedding","anchor":"#step-2-word-embedding"},{"id":"step-3-positional-encoding","level":0,"title":"Step 3: Positional Encoding","anchor":"#step-3-positional-encoding"},{"id":"step-4-transformer-block","level":0,"title":"Step 4: Transformer Block","anchor":"#step-4-transformer-block"},{"id":"step-5-residual-connection-and-layer-normalization","level":0,"title":"Step 5: Residual Connection and Layer Normalization","anchor":"#step-5-residual-connection-and-layer-normalization"},{"id":"step-6-feed-forward-network","level":0,"title":"Step 6: Feed Forward Network","anchor":"#step-6-feed-forward-network"},{"id":"step-7-repeat-step-4-to-6","level":0,"title":"Step 7: Repeat step 4 to 6","anchor":"#step-7-repeat-step-4-to-6"},{"id":"step-8-output-probabilities","level":0,"title":"Step 8: Output Probabilities","anchor":"#step-8-output-probabilities"},{"id":"full-working-code","level":0,"title":"Full Working Code","anchor":"#full-working-code"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.css" rel="stylesheet"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><link rel="manifest" href="site.webmanifest"><meta name="msapplication-TileColor" content="#000000"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Let&apos;s Code LLM | LLM: From Zero to Hero"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="LLM: From Zero to Hero Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="let-s-code-llm.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Let&apos;s Code LLM | LLM: From Zero to Hero"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2024-02-04T00:19:06.19947"><title>Let&apos;s Code LLM | LLM: From Zero to Hero</title><script type="application/json" id="virtual-toc-data">[{"id":"prepare-the-environment","level":0,"title":"Prepare the Environment","anchor":"#prepare-the-environment"},{"id":"setup-hyperparameters","level":0,"title":"Setup Hyperparameters","anchor":"#setup-hyperparameters"},{"id":"prepare-the-dataset","level":0,"title":"Prepare the Dataset","anchor":"#prepare-the-dataset"},{"id":"step-1-tokenization","level":0,"title":"Step 1: Tokenization","anchor":"#step-1-tokenization"},{"id":"step-2-word-embedding","level":0,"title":"Step 2: Word Embedding","anchor":"#step-2-word-embedding"},{"id":"step-3-positional-encoding","level":0,"title":"Step 3: Positional Encoding","anchor":"#step-3-positional-encoding"},{"id":"step-4-transformer-block","level":0,"title":"Step 4: Transformer Block","anchor":"#step-4-transformer-block"},{"id":"step-5-residual-connection-and-layer-normalization","level":0,"title":"Step 5: Residual Connection and Layer Normalization","anchor":"#step-5-residual-connection-and-layer-normalization"},{"id":"step-6-feed-forward-network","level":0,"title":"Step 6: Feed Forward Network","anchor":"#step-6-feed-forward-network"},{"id":"step-7-repeat-step-4-to-6","level":0,"title":"Step 7: Repeat step 4 to 6","anchor":"#step-7-repeat-step-4-to-6"},{"id":"step-8-output-probabilities","level":0,"title":"Step 8: Output Probabilities","anchor":"#step-8-output-probabilities"},{"id":"full-working-code","level":0,"title":"Full Working Code","anchor":"#full-working-code"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="16x16" href="images/cropped_logo.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Let&apos;s Code LLM | LLM: From Zero to Hero"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="LLM: From Zero to Hero Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="let-s-code-llm.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Let&apos;s Code LLM | LLM: From Zero to Hero"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
     "@context": "http://schema.org",
     "@type": "WebPage",
     "@id": "let-s-code-llm.html#webpage",
@@ -13,7 +13,7 @@
     "@id": "/#website",
     "url": "/",
     "name": "LLM: From Zero to Hero Help"
-}</script><!-- End Schema.org --></head><body data-id="Let-s-Code-LLM" data-main-title="Let&apos;s Code LLM" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>LLM: From Zero to Hero  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Let-s-Code-LLM" id="Let-s-Code-LLM.md">Let&apos;s Code LLM</h1><aside class="prompt" data-type="note" data-title="" id="9db70bb2_105"><p id="9db70bb2_106"><span class="emphasis" id="9db70bb2_107">The full structured code in this article can be downloaded from <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="9db70bb2_108" data-external="true" rel="noopener noreferrer">github.com/waylandzhang/Transformer-from-scratch</a></span>.</p></aside><p id="9db70bb2_109">In this article we will implement a GPT-like transformer from scratch. We will code each section follow the steps as described in my <a href="transformer-architecture.html" id="9db70bb2_110" data-tooltip="When I was new to AI and first encountered the Transformer Architecture, I felt overwhelmed by the sheer number of concepts and tutorials available to understand it. I noticed that some videos or articles assumed prior knowledge of natural language processing (NLP) concepts, while&hellip;">previous article</a>.</p><p id="9db70bb2_111">So let's get started.</p><section class="chapter"><h2 id="prepare-the-environment" data-toc="prepare-the-environment">Prepare the Environment</h2><p id="9db70bb2_112">Install dependencies</p><div class="code-block" data-lang="bash">
+}</script><!-- End Schema.org --></head><body data-id="Let-s-Code-LLM" data-main-title="Let&apos;s Code LLM" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>LLM: From Zero to Hero  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Let-s-Code-LLM" id="Let-s-Code-LLM.md">Let&apos;s Code LLM</h1><aside class="prompt" data-type="note" data-title="" id="137012d8_311"><p id="137012d8_312"><span class="emphasis" id="137012d8_313">The full structured code in this article can be downloaded from <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="137012d8_314" data-external="true" rel="noopener noreferrer">github.com/waylandzhang/Transformer-from-scratch</a></span>.</p></aside><p id="137012d8_315">In this article we will implement a GPT-like transformer from scratch. We will code each section follow the steps as described in my <a href="transformer-architecture.html" id="137012d8_316" data-tooltip="When I was new to AI and first encountered the Transformer Architecture, I felt overwhelmed by the sheer number of concepts and tutorials available to understand it. I noticed that some videos or articles assumed prior knowledge of natural language processing (NLP) concepts, while&hellip;">previous article</a>.</p><p id="137012d8_317">So let's get started.</p><section class="chapter"><h2 id="prepare-the-environment" data-toc="prepare-the-environment">Prepare the Environment</h2><p id="137012d8_318">Install dependencies</p><div class="code-block" data-lang="bash">
 pip install numpy requests torch tiktoken matplotlib pandas
 </div><div class="code-block" data-lang="python">
 import os
@@ -24,7 +24,7 @@ import math
 import tiktoken
 import torch
 import torch.nn as nn
-</div></section><section class="chapter"><h2 id="setup-hyperparameters" data-toc="setup-hyperparameters">Setup Hyperparameters</h2><p id="9db70bb2_115">Hyperparameters are external configurations for a model that cannot be learned from the data during training. They are set before the training process begins and play a crucial role in controlling the behavior of the training algorithm and the performance of the trained models.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="setup-hyperparameters" data-toc="setup-hyperparameters">Setup Hyperparameters</h2><p id="137012d8_321">Hyperparameters are external configurations for a model that cannot be learned from the data during training. They are set before the training process begins and play a crucial role in controlling the behavior of the training algorithm and the performance of the trained models.</p><div class="code-block" data-lang="python">
 # Hyperparameters
 batch_size = 4  # How many batches per training step
 context_length = 16  # Length of the token chunk each batch
@@ -40,7 +40,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Instead of using the 
 
 TORCH_SEED = 1337
 torch.manual_seed(TORCH_SEED)
-</div></section><section class="chapter"><h2 id="prepare-the-dataset" data-toc="prepare-the-dataset">Prepare the Dataset</h2><p id="9db70bb2_117">As in our example, we'll use a small dataset for training. The dataset is a text file containing a sales textbook. We'll use the text file to train a language model that can generate sales text.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="prepare-the-dataset" data-toc="prepare-the-dataset">Prepare the Dataset</h2><p id="137012d8_323">As in our example, we'll use a small dataset for training. The dataset is a text file containing a sales textbook. We'll use the text file to train a language model that can generate sales text.</p><div class="code-block" data-lang="python">
 # download a sample txt file from https://huggingface.co/datasets/goendalf666/sales-textbook_for_convincing_and_selling/raw/main/sales_textbook.txt
 if not os.path.exists('sales_textbook.txt'):
     url = 'https://huggingface.co/datasets/goendalf666/sales-textbook_for_convincing_and_selling/raw/main/sales_textbook.txt'
@@ -49,7 +49,7 @@ if not os.path.exists('sales_textbook.txt'):
 
 with open('sales_textbook.txt', 'r', encoding='utf-8') as f:
     text = f.read()
-</div></section><section class="chapter"><h2 id="step-1-tokenization" data-toc="step-1-tokenization">Step 1: Tokenization</h2><p id="9db70bb2_119">We'll use the <a href="https://github.com/openai/tiktoken" id="9db70bb2_120" data-external="true" rel="noopener noreferrer">tiktoken</a> library to tokenize the dataset. The library is a fast and lightweight tokenizer that can be used to tokenize text into tokens.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-1-tokenization" data-toc="step-1-tokenization">Step 1: Tokenization</h2><p id="137012d8_325">We'll use the <a href="https://github.com/openai/tiktoken" id="137012d8_326" data-external="true" rel="noopener noreferrer">tiktoken</a> library to tokenize the dataset. The library is a fast and lightweight tokenizer that can be used to tokenize text into tokens.</p><div class="code-block" data-lang="python">
 # Using TikToken to tokenize the source text
 encoding = tiktoken.get_encoding(&quot;cl100k_base&quot;)
 tokenized_text = encoding.encode(text) # size of tokenized source text is 77,919
@@ -60,11 +60,11 @@ print(f&quot;Tokenized text size: {len(tokenized_text)}&quot;)
 print(f&quot;Vocabulary size: {vocab_size}&quot;)
 print(f&quot;The maximum value in the tokenized text is: {max_token_value}&quot;)
 
-</div><p id="9db70bb2_122">Printed output:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_328">Printed output:</p><div class="code-block" data-lang="plaintext">
 Tokenized text size: 77919
 Vocabulary size: 3771
 The maximum value in the tokenized text is: 100069
-</div></section><section class="chapter"><h2 id="step-2-word-embedding" data-toc="step-2-word-embedding">Step 2: Word Embedding</h2><p id="9db70bb2_124">We'll split the dataset into training and validation sets. The training set will be used to train the model, and the validation set will be used to evaluate the model's performance.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-2-word-embedding" data-toc="step-2-word-embedding">Step 2: Word Embedding</h2><p id="137012d8_330">We'll split the dataset into training and validation sets. The training set will be used to train the model, and the validation set will be used to evaluate the model's performance.</p><div class="code-block" data-lang="python">
 # Split train and validation
 split_idx = int(len(tokenized_text) * 0.8)
 train_data = tokenized_text[:split_idx]
@@ -77,20 +77,20 @@ idxs = torch.randint(low=0, high=len(data) - context_length, size=(batch_size,))
 x_batch = torch.stack([data[idx:idx + context_length] for idx in idxs])
 y_batch = torch.stack([data[idx + 1:idx + context_length + 1] for idx in idxs])
 print(x_batch.shape, x_batch.shape)
-</div><p id="9db70bb2_126">Printed output (the shape of the training input <span class="control" id="9db70bb2_127">x</span> and <span class="control" id="9db70bb2_128">y</span>):</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_332">Printed output (the shape of the training input <span class="control" id="137012d8_333">x</span> and <span class="control" id="137012d8_334">y</span>):</p><div class="code-block" data-lang="plaintext">
 torch.Size([4, 16]) torch.Size([4, 16])
-</div></section><section class="chapter"><h2 id="step-3-positional-encoding" data-toc="step-3-positional-encoding">Step 3: Positional Encoding</h2><p id="9db70bb2_130">We'll use a simple embedding layer to convert the input tokens into vectors.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-3-positional-encoding" data-toc="step-3-positional-encoding">Step 3: Positional Encoding</h2><p id="137012d8_336">We'll use a simple embedding layer to convert the input tokens into vectors.</p><div class="code-block" data-lang="python">
 # Define Token Embedding look-up table
 token_embedding_lookup_table = nn.Embedding(max_token_value, d_model)
 
 # Get X and Y embedding
 x = token_embedding_lookup_table(x_batch.data)
 y = token_embedding_lookup_table(y_batch.data)
-</div><p id="9db70bb2_132">Now, both our input x and y are of shape (batch_size, context_length, d_model).</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_338">Now, both our input x and y are of shape (batch_size, context_length, d_model).</p><div class="code-block" data-lang="python">
 # Get x and y embedding
 x = token_embedding_lookup_table(x_batch.data) # [4, 16, 64] [batch_size, context_length, d_model]
 y = token_embedding_lookup_table(y_batch.data)
-</div><section class="chapter"><h3 id="apply-positional-embedding" data-toc="apply-positional-embedding">Apply Positional Embedding</h3><p id="9db70bb2_134">As described in the original paper, we'll use sine and cosine to generate a positional embedding table, then add these positional information to the input embedding tokens.</p><div class="code-block" data-lang="python">
+</div><section class="chapter"><h3 id="apply-positional-embedding" data-toc="apply-positional-embedding">Apply Positional Embedding</h3><p id="137012d8_340">As described in the original paper, we'll use sine and cosine to generate a positional embedding table, then add these positional information to the input embedding tokens.</p><div class="code-block" data-lang="python">
 # Define Position Encoding look-up table
 position_encoding_lookup_table = torch.zeros(context_length, d_model) # initial with zeros with shape (context_length, d_model)
 position = torch.arange(0, context_length, dtype=torch.float).unsqueeze(1)
@@ -101,9 +101,9 @@ position_encoding_lookup_table[:, 1::2] = torch.cos(position * div_term)
 position_encoding_lookup_table = position_encoding_lookup_table.unsqueeze(0).expand(batch_size, -1, -1) #add batch to the first dimension
 
 print(&quot;Position Encoding Look-up Table: &quot;, position_encoding_lookup_table.shape)
-</div><p id="9db70bb2_136">Printed output:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_342">Printed output:</p><div class="code-block" data-lang="plaintext">
 Position Encoding Look-up Table:  torch.Size([4, 16, 64])
-</div><p id="9db70bb2_138">Then, add the positional encoding into the input embedding vectors.</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_344">Then, add the positional encoding into the input embedding vectors.</p><div class="code-block" data-lang="python">
 # Add positional encoding into the input embedding vector
 input_embedding_x = x + position_encoding_lookup_table # [4, 16, 64] [batch_size, context_length, d_model]
 input_embedding_y = y + position_encoding_lookup_table
@@ -112,7 +112,7 @@ X = input_embedding_x
 
 x_plot = input_embedding_x[0].detach().cpu().numpy()
 print(&quot;Final Input Embedding of x: \n&quot;, pd.DataFrame(x_plot))
-</div><p id="9db70bb2_140"><span class="emphasis" id="9db70bb2_141">Now, we get our <span class="control" id="9db70bb2_142">final input embedding of X</span>, which is the value to be fed into the transformer block:</span></p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_346"><span class="emphasis" id="137012d8_347">Now, we get our <span class="control" id="137012d8_348">final input embedding of X</span>, which is the value to be fed into the transformer block:</span></p><div class="code-block" data-lang="plaintext">
 Final Input Embedding of x: 
            0         1         2         3         4         5         6         7         8         9   ...        54        55        56        57        58        59        60        61        62        63
 0  -1.782388  1.200549 -0.177262  0.278616 -1.322919  0.929397 -0.178307  1.453488 -0.216367 -2.049190  ... -0.009743  2.694576 -0.592321  1.235002  1.137691  1.076938 -1.583359  1.994682 -0.411284  2.365598
@@ -133,7 +133,7 @@ Final Input Embedding of x:
 15  0.301521  0.997564 -0.672755 -1.215677  0.949777  0.474997 -0.279164  1.144048 -1.059472  0.068650  ...  0.796498 -1.032138  0.977697  0.790623  0.725540  1.646803  1.253047  0.296801  0.798098  2.022164
 
 [16 rows x 64 columns]
-</div><p id="9db70bb2_144"><span class="emphasis" id="9db70bb2_145">Note: y embedding vector will be the same shape as our x.</span></p></section></section><section class="chapter"><h2 id="step-4-transformer-block" data-toc="step-4-transformer-block">Step 4: Transformer Block</h2><section class="chapter"><h3 id="4-1-multi-head-attention-overview" data-toc="4-1-multi-head-attention-overview">4.1 Multi-head Attention Overview</h3><p id="9db70bb2_146">Let's bring back our Multi-head Attention diagram.</p><figure id="9db70bb2_147"><img alt="Multi-head Attention" src="images/attention-block-step.png" title="Multi-head Attention" width="500" height="533"></figure><p id="9db70bb2_148">Now we have our input embedding <span class="control" id="9db70bb2_149">X</span>, we can start to implement the Multi-head Attention block. There will be a series of steps to implement the Multi-head Attention block. Let's code them one by one.</p></section><section class="chapter"><h3 id="4-2-prepare-q-k-v" data-toc="4-2-prepare-q-k-v">4.2 Prepare Q,K,V</h3><div class="code-block" data-lang="python">
+</div><p id="137012d8_350"><span class="emphasis" id="137012d8_351">Note: y embedding vector will be the same shape as our x.</span></p></section></section><section class="chapter"><h2 id="step-4-transformer-block" data-toc="step-4-transformer-block">Step 4: Transformer Block</h2><section class="chapter"><h3 id="4-1-multi-head-attention-overview" data-toc="4-1-multi-head-attention-overview">4.1 Multi-head Attention Overview</h3><p id="137012d8_352">Let's bring back our Multi-head Attention diagram.</p><figure id="137012d8_353"><img alt="Multi-head Attention" src="images/attention-block-step.png" title="Multi-head Attention" width="500" height="533"></figure><p id="137012d8_354">Now we have our input embedding <span class="control" id="137012d8_355">X</span>, we can start to implement the Multi-head Attention block. There will be a series of steps to implement the Multi-head Attention block. Let's code them one by one.</p></section><section class="chapter"><h3 id="4-2-prepare-q-k-v" data-toc="4-2-prepare-q-k-v">4.2 Prepare Q,K,V</h3><div class="code-block" data-lang="python">
 # Prepare Query, Key, Value for Multi-head Attention
 
 query = key = value = X # [4, 16, 64] [batch_size, context_length, d_model]
@@ -151,23 +151,23 @@ K = K.view(batch_size, -1, num_heads, d_model // num_heads)  #[4, 16, 4, 16]
 
 V = Wv(value) #[4, 16, 64]
 V = V.view(batch_size, -1, num_heads, d_model // num_heads)  #[4, 16, 4, 16]
-</div><p id="9db70bb2_151">We then reshape our Q, K, V to [batch_size, num_heads, context_length, head_size] for further computation.</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_357">We then reshape our Q, K, V to [batch_size, num_heads, context_length, head_size] for further computation.</p><div class="code-block" data-lang="python">
 # Transpose q,k,v from [batch_size, context_length, num_heads, head_size] to [batch_size, num_heads, context_length, head_size]
 # The reason is that treat each batch with &quot;num_heads&quot; as its first dimension.
 Q = Q.transpose(1, 2) # [4, 4, 16, 16]
 K = K.transpose(1, 2) # [4, 4, 16, 16]
 V = V.transpose(1, 2) # [4, 4, 16, 16]
-</div></section><section class="chapter"><h3 id="4-3-calculate-qk-t-attention" data-toc="4-3-calculate-qk-t-attention">4.3 Calculate QK^T Attention</h3><p id="9db70bb2_153">This can be done very easily by using the torch.matmul function.</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h3 id="4-3-calculate-qk-t-attention" data-toc="4-3-calculate-qk-t-attention">4.3 Calculate QK^T Attention</h3><p id="137012d8_359">This can be done very easily by using the torch.matmul function.</p><div class="code-block" data-lang="python">
 # Calculate the attention score betwee Q and K^T
 attention_score = torch.matmul(Q, K.transpose(-2, -1))
 </div></section><section class="chapter"><h3 id="4-4-scale" data-toc="4-4-scale">4.4 Scale</h3><div class="code-block" data-lang="python">
 # Then Scale the attention score by the square root of the head size
 attention_score = attention_score / math.sqrt(d_model // num_heads)
 
-</div><p id="9db70bb2_156">We can actually rewrite 4.3 and 4.4 in one line:</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_362">We can actually rewrite 4.3 and 4.4 in one line:</p><div class="code-block" data-lang="python">
 attention_score = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_model // num_heads) # [4, 4, 16, 16] #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
-</div><p id="9db70bb2_158">Printed output <span class="emphasis" id="9db70bb2_159">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_364">Printed output <span class="emphasis" id="137012d8_365">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
           0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 0   0.105279 -0.365092 -0.339839 -0.650558 -0.464043 -0.531401  0.437939 -0.650732 -0.616331 -0.429000 -0.332607  0.080401  0.000111 -0.601670 -0.783942  0.147967
 1  -0.302636  0.525435  0.863502 -0.218539  0.600691 -0.413970  0.408111  0.765074 -0.376257  0.233526  0.915393 -0.263153  0.683832  0.430964  0.802033  0.281169
@@ -189,7 +189,7 @@ print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
 # Apply Mask to attention scores
 attention_score = attention_score.masked_fill(torch.triu(torch.ones(attention_score.shape[-2:]), diagonal=1).bool(), float('-inf')) #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
-</div><p id="9db70bb2_162">Printed output <span class="emphasis" id="9db70bb2_163">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_368">Printed output <span class="emphasis" id="137012d8_369">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
          0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 0   0.105279      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf
 1  -0.302636  0.525435      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf      -inf
@@ -207,11 +207,11 @@ print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
 13  0.550975  0.313643 -0.074468  0.519995 -0.149188 -0.565922  0.199527 -0.738029  0.142203 -0.164007 -0.494203  0.570010 -0.579608 -0.198923      -inf      -inf
 14 -0.616347 -0.812240  0.245260  0.167278  0.913596 -0.493119  1.139083 -0.300623 -0.399155  0.200648 -0.114634  0.147219 -0.829207  0.363519 -0.325846      -inf
 15 -0.145391  0.514632 -0.296119 -0.038103 -0.187110 -0.634636  0.509902 -0.338267 -0.231534 -0.007304 -0.432799  0.339123  0.248173 -0.242426 -0.595925 -0.442379
-</div><p id="9db70bb2_165">as we can see the diagonal and the upper triangle are masked with -inf.</p></section><section class="chapter"><h3 id="4-6-softmax" data-toc="4-6-softmax">4.6 Softmax</h3><div class="code-block" data-lang="python">
+</div><p id="137012d8_371">as we can see the diagonal and the upper triangle are masked with -inf.</p></section><section class="chapter"><h3 id="4-6-softmax" data-toc="4-6-softmax">4.6 Softmax</h3><div class="code-block" data-lang="python">
 # Softmax the attention score
 attention_score = torch.softmax(attention_score, dim=-1)  #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score.detach().cpu().numpy()))
-</div><p id="9db70bb2_167">Printed output <span class="emphasis" id="9db70bb2_168">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_373">Printed output <span class="emphasis" id="137012d8_374">(one sequence of one batch)</span>:</p><div class="code-block" data-lang="plaintext">
           0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 0   0.062604  0.062472  0.062478  0.062419  0.062452  0.062439  0.062748  0.062419  0.062424  0.062459  0.062479  0.062595  0.062568  0.062427  0.062399  0.062619
 1   0.062377  0.062529  0.062643  0.062387  0.062551  0.062364  0.062499  0.062605  0.062368  0.062460  0.062664  0.062381  0.062577  0.062505  0.062619  0.062470
@@ -229,22 +229,22 @@ print(pd.DataFrame(attention_score.detach().cpu().numpy()))
 13  0.062685  0.062591  0.062482  0.062671  0.062466  0.062395  0.062554  0.062374  0.062538  0.062463  0.062405  0.062693  0.062393  0.062456  0.062360  0.062472
 14  0.062372  0.062352  0.062530  0.062509  0.062806  0.062387  0.062958  0.062414  0.062400  0.062518  0.062447  0.062504  0.062350  0.062566  0.062410  0.062476
 15  0.062479  0.062693  0.062448  0.062504  0.062470  0.062394  0.062691  0.062440  0.062460  0.062512  0.062424  0.062620  0.062588  0.062458  0.062399  0.062422
-</div><p id="9db70bb2_170">after applying the softmax function, the scores are now between 0 and 1, and the sum of each row is 1.</p></section><section class="chapter"><h3 id="4-7-calculate-v-attention" data-toc="4-7-calculate-v-attention">4.7 Calculate V Attention</h3><p id="9db70bb2_171">Finally, we multiply the attention scores against <span class="control" id="9db70bb2_172">V</span> to get the output of the Multi-head Attention block.</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_376">after applying the softmax function, the scores are now between 0 and 1, and the sum of each row is 1.</p></section><section class="chapter"><h3 id="4-7-calculate-v-attention" data-toc="4-7-calculate-v-attention">4.7 Calculate V Attention</h3><p id="137012d8_377">Finally, we multiply the attention scores against <span class="control" id="137012d8_378">V</span> to get the output of the Multi-head Attention block.</p><div class="code-block" data-lang="python">
 # Calculate the V attention output
 A = torch.matmul(attention_score, V) # [4, 4, 16, 16] [batch_size, num_heads, context_length, head_size]
 print(attention_output.shape)
-</div><p id="9db70bb2_174">Printed output:</p><div class="code-block" data-lang="plaintext">
+</div><p id="137012d8_380">Printed output:</p><div class="code-block" data-lang="plaintext">
 torch.Size([4, 4, 16, 16])
-</div><p id="9db70bb2_176"><span class="emphasis" id="9db70bb2_177">Note: the shape now is [4, 4, 16, 16] which is [batch_size, num_heads, context_length, head_size]</span>.</p></section><section class="chapter"><h3 id="4-8-concatenate-and-output" data-toc="4-8-concatenate-and-output">4.8 Concatenate and Output</h3><p id="9db70bb2_178">Recall from the <a href="http://localhost:63342/llm-zero-to-hero/preview/transformer-architecture.html#4-8-concatenate-and-output" id="9db70bb2_179" data-external="true" rel="noopener noreferrer">last article</a> we need to concatenate the output of the Multi-head Attention block and feed it into a linear layer.</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_382"><span class="emphasis" id="137012d8_383">Note: the shape now is [4, 4, 16, 16] which is [batch_size, num_heads, context_length, head_size]</span>.</p></section><section class="chapter"><h3 id="4-8-concatenate-and-output" data-toc="4-8-concatenate-and-output">4.8 Concatenate and Output</h3><p id="137012d8_384">Recall from the <a href="http://localhost:63342/llm-zero-to-hero/preview/transformer-architecture.html#4-8-concatenate-and-output" id="137012d8_385" data-external="true" rel="noopener noreferrer">last article</a> we need to concatenate the output of the Multi-head Attention block and feed it into a linear layer.</p><div class="code-block" data-lang="python">
 A = A.transpose(1, 2) # [4, 16, 4, 16] [batch_size, context_length, num_heads, head_size]
 A = A.reshape(batch_size, -1, d_model) # [4, 16, 64] [batch_size, context_length, d_model]
-</div><p id="9db70bb2_181"><span class="emphasis" id="9db70bb2_182">Note: the shape now is [4, 16, 64] which is [batch_size, context_length, d_model]</span>.</p><p id="9db70bb2_183">Now, we can apply another [64,64] linear layer of <span class="control" id="9db70bb2_184">Wo</span> <span class="emphasis" id="9db70bb2_185">(which are learned weights during training)</span> and get our final output of the Multi-head Attention block:</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_387"><span class="emphasis" id="137012d8_388">Note: the shape now is [4, 16, 64] which is [batch_size, context_length, d_model]</span>.</p><p id="137012d8_389">Now, we can apply another [64,64] linear layer of <span class="control" id="137012d8_390">Wo</span> <span class="emphasis" id="137012d8_391">(which are learned weights during training)</span> and get our final output of the Multi-head Attention block:</p><div class="code-block" data-lang="python">
 # Define the output weight matrix
 Wo = nn.Linear(d_model, d_model)
 output = Wo(A) # [4, 16, 64] [batch_size, context_length, d_model]
 
 print(output.shape)
-</div><p id="9db70bb2_187">If we print it out, the shape is back to [4, 16, 64] which is same as our input embedding shape.</p></section></section><section class="chapter"><h2 id="step-5-residual-connection-and-layer-normalization" data-toc="step-5-residual-connection-and-layer-normalization">Step 5: Residual Connection and Layer Normalization</h2><p id="9db70bb2_188">Now we have the output of the Multi-head Attention block, we can apply the residual connection and layer normalization.</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_393">If we print it out, the shape is back to [4, 16, 64] which is same as our input embedding shape.</p></section></section><section class="chapter"><h2 id="step-5-residual-connection-and-layer-normalization" data-toc="step-5-residual-connection-and-layer-normalization">Step 5: Residual Connection and Layer Normalization</h2><p id="137012d8_394">Now we have the output of the Multi-head Attention block, we can apply the residual connection and layer normalization.</p><div class="code-block" data-lang="python">
 # Add residual connection
 output = output + X
 
@@ -257,16 +257,16 @@ output = nn.Linear(d_model, d_model * 4)(output)
 output = nn.ReLU()(output)
 output = nn.Linear(d_model * 4, d_model)(output)
 output = torch.dropout(output, p=dropout, train=True)
-</div><p id="9db70bb2_191">Add the last residual connection and layer normalization:</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_397">Add the last residual connection and layer normalization:</p><div class="code-block" data-lang="python">
 # Add residual connection
 output = output + X
 # Add Layer Normalization
 layer_norm = nn.LayerNorm(d_model)
 output = layer_norm(output)
-</div></section><section class="chapter"><h2 id="step-7-repeat-step-4-to-6" data-toc="step-7-repeat-step-4-to-6">Step 7: Repeat step 4 to 6</h2><p id="9db70bb2_193">What we've finished above is just one transformer block. In practise, we will stack multiple transformer blocks together to form a transformer decoder.</p><p id="9db70bb2_194">We actually should pack our code to classes and use PyTorch nn.Module to build our transformer decoder. But for demonstration, we'll just leave it with one block.</p></section><section class="chapter"><h2 id="step-8-output-probabilities" data-toc="step-8-output-probabilities">Step 8: Output Probabilities</h2><p id="9db70bb2_195">Apply the final linear layer to get our logits:</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-7-repeat-step-4-to-6" data-toc="step-7-repeat-step-4-to-6">Step 7: Repeat step 4 to 6</h2><p id="137012d8_399">What we've finished above is just one transformer block. In practise, we will stack multiple transformer blocks together to form a transformer decoder.</p><p id="137012d8_400">We actually should pack our code to classes and use PyTorch nn.Module to build our transformer decoder. But for demonstration, we'll just leave it with one block.</p></section><section class="chapter"><h2 id="step-8-output-probabilities" data-toc="step-8-output-probabilities">Step 8: Output Probabilities</h2><p id="137012d8_401">Apply the final linear layer to get our logits:</p><div class="code-block" data-lang="python">
 logits = nn.Linear(d_model, max_token_value)(output)
 print(pd.DataFrame(logits[0].detach().cpu().numpy()))
-</div><p id="9db70bb2_197">The last step is to <span class="emphasis" id="9db70bb2_198">softmax</span> the logits to get the probabilities of each token:</p><div class="code-block" data-lang="python">
+</div><p id="137012d8_403">The last step is to <span class="emphasis" id="137012d8_404">softmax</span> the logits to get the probabilities of each token:</p><div class="code-block" data-lang="python">
 # torch.softmax usually used during inference, during training we use torch.nn.CrossEntropyLoss
 # but for illustration purpose, we'll use torch.softmax here
 probabilities = torch.softmax(logits, dim=-1)
@@ -291,4 +291,4 @@ probabilities = torch.softmax(logits, dim=-1)
 
 [16 rows x 100069 columns]
 
-</div><p id="9db70bb2_201"><span class="emphasis" id="9db70bb2_202">Note what we get here is a huge matrix with shape [16, 100069] which is the probabilities of each token in the whole vocabulary.</span></p></section><section class="chapter"><h2 id="full-working-code" data-toc="full-working-code">Full Working Code</h2><p id="9db70bb2_203">In practise, multiple transformer blocks will be stacked together to perform one decoding transaction. And during training, the output token will be compared with the ground truth token to calculate the loss. Then repeat the process for our <span class="control" id="9db70bb2_204">max_iters</span> times defined in the hyper parameters.</p><p id="9db70bb2_205">I have a full working Transformer Decoder code in my <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="9db70bb2_206" data-external="true" rel="noopener noreferrer">GitHub</a> you can check out.</p></section><div class="last-modified">Last modified: 02 February 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="transformer-architecture.html" class="navigation-links__prev">Transformer Architecture</a><a href="let-s-train-llm.html" class="navigation-links__next">Let&apos;s Train LLM</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.js"></script></body></html>
+</div><p id="137012d8_407"><span class="emphasis" id="137012d8_408">Note what we get here is a huge matrix with shape [16, 100069] which is the probabilities of each token in the whole vocabulary.</span></p></section><section class="chapter"><h2 id="full-working-code" data-toc="full-working-code">Full Working Code</h2><p id="137012d8_409">In practise, multiple transformer blocks will be stacked together to perform one decoding transaction. And during training, the output token will be compared with the ground truth token to calculate the loss. Then repeat the process for our <span class="control" id="137012d8_410">max_iters</span> times defined in the hyper parameters.</p><p id="137012d8_411">I have a full working Transformer Decoder code in my <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="137012d8_412" data-external="true" rel="noopener noreferrer">GitHub</a> you can check out.</p></section><div class="last-modified">Last modified: 03 February 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="transformer-architecture.html" class="navigation-links__prev">Transformer Architecture</a><a href="let-s-train-llm.html" class="navigation-links__next">Let&apos;s Train LLM</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.js"></script></body></html>
