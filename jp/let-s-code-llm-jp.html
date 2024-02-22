@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2024-02-04T00:19:37.68557"><title>LLMをコーディング | LLM：ゼロからエキスパートへ</title><script type="application/json" id="virtual-toc-data">[{"id":"66441473_441","level":0,"title":"環境準備","anchor":"#66441473_441"},{"id":"hyperparameters","level":0,"title":"Hyperparametersの設定","anchor":"#hyperparameters"},{"id":"dataset","level":0,"title":"Datasetの準備","anchor":"#dataset"},{"id":"step-1","level":0,"title":"Step 1: トーク化","anchor":"#step-1"},{"id":"step-2","level":0,"title":"Step 2: 単語の埋め込み","anchor":"#step-2"},{"id":"step-3","level":0,"title":"Step 3: 位置エンコーディング","anchor":"#step-3"},{"id":"step-4","level":0,"title":"Step 4: トランスフォーマーブロック","anchor":"#step-4"},{"id":"step-5","level":0,"title":"Step 5: 残差接続とレイヤー正規化","anchor":"#step-5"},{"id":"step-6","level":0,"title":"Step 6: フィードフォワードネットワーク","anchor":"#step-6"},{"id":"step-7-4-6","level":0,"title":"Step 7: ステップ4から6を繰り返す","anchor":"#step-7-4-6"},{"id":"step-8","level":0,"title":"Step 8: 出力確率","anchor":"#step-8"},{"id":"66441473_535","level":0,"title":"完全な動作コード","anchor":"#66441473_535"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="16x16" href="images/cropped_logo.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="LLMをコーディング | LLM：ゼロからエキスパートへ"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="LLM：ゼロからエキスパートへ Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="/japanese/let-s-code-llm-jp.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="LLMをコーディング | LLM：ゼロからエキスパートへ"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+<html lang="en-US" data-colors-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2024-02-22T15:49:55.130952"><title>LLMをコーディング | LLM：ゼロからエキスパートへ</title><script type="application/json" id="virtual-toc-data">[{"id":"4ff20e33_9","level":0,"title":"環境準備","anchor":"#4ff20e33_9"},{"id":"hyperparameters","level":0,"title":"Hyperparametersの設定","anchor":"#hyperparameters"},{"id":"dataset","level":0,"title":"Datasetの準備","anchor":"#dataset"},{"id":"step-1","level":0,"title":"Step 1: トーク化","anchor":"#step-1"},{"id":"step-2","level":0,"title":"Step 2: 単語の埋め込み","anchor":"#step-2"},{"id":"step-3","level":0,"title":"Step 3: 位置エンコーディング","anchor":"#step-3"},{"id":"step-4","level":0,"title":"Step 4: トランスフォーマーブロック","anchor":"#step-4"},{"id":"step-5","level":0,"title":"Step 5: 残差接続とレイヤー正規化","anchor":"#step-5"},{"id":"step-6","level":0,"title":"Step 6: フィードフォワードネットワーク","anchor":"#step-6"},{"id":"step-7-4-6","level":0,"title":"Step 7: ステップ4から6を繰り返す","anchor":"#step-7-4-6"},{"id":"step-8","level":0,"title":"Step 8: 出力確率","anchor":"#step-8"},{"id":"4ff20e33_103","level":0,"title":"完全な動作コード","anchor":"#4ff20e33_103"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="16x16" href="images/cropped_logo.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="LLMをコーディング | LLM：ゼロからエキスパートへ"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="LLM：ゼロからエキスパートへ Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="/japanese/let-s-code-llm-jp.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="LLMをコーディング | LLM：ゼロからエキスパートへ"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
     "@context": "http://schema.org",
     "@type": "WebPage",
     "@id": "/japanese/let-s-code-llm-jp.html#webpage",
@@ -13,7 +13,7 @@
     "@id": "/japanese/#website",
     "url": "/japanese/",
     "name": "LLM：ゼロからエキスパートへ Help"
-}</script><!-- End Schema.org --></head><body data-id="Let-s-Code-LLM-JP" data-main-title="LLMをコーディング" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>LLM：ゼロからエキスパートへ  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Let-s-Code-LLM-JP" id="Let-s-Code-LLM-JP.md">LLMをコーディング</h1><aside class="prompt" data-type="note" data-title="" id="66441473_434"><p id="66441473_435"><span class="emphasis" id="66441473_436">The full structured code in this article can be downloaded from <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="66441473_437" data-external="true" rel="noopener noreferrer">github.com/waylandzhang/Transformer-from-scratch</a></span>.</p></aside><p id="66441473_438">この記事では、ゼロからGPTライクなトランスフォーマーを実装します。 私の <span id="66441473_439">前の記事</span>で説明されている手順に従って、各セクションをコーディングします。</p><p id="66441473_440">では、始めましょう。</p><section class="chapter"><h2 id="66441473_441" data-toc="66441473_441">環境準備</h2><p id="66441473_442">依存関係をインストールします。</p><div class="code-block" data-lang="bash">
+}</script><!-- End Schema.org --></head><body data-id="Let-s-Code-LLM-JP" data-main-title="LLMをコーディング" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs=""><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>LLM：ゼロからエキスパートへ  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Let-s-Code-LLM-JP" id="Let-s-Code-LLM-JP.md">LLMをコーディング</h1><aside class="prompt" data-type="note" data-title="" id="4ff20e33_2"><p id="4ff20e33_3"><span class="emphasis" id="4ff20e33_4">The full structured code in this article can be downloaded from <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="4ff20e33_5" data-external="true" rel="noopener noreferrer">github.com/waylandzhang/Transformer-from-scratch</a></span>.</p></aside><p id="4ff20e33_6">この記事では、ゼロからGPTライクなトランスフォーマーを実装します。 私の <span id="4ff20e33_7">前の記事</span>で説明されている手順に従って、各セクションをコーディングします。</p><p id="4ff20e33_8">では、始めましょう。</p><section class="chapter"><h2 id="4ff20e33_9" data-toc="4ff20e33_9">環境準備</h2><p id="4ff20e33_10">依存関係をインストールします。</p><div class="code-block" data-lang="bash">
 pip install numpy requests torch tiktoken matplotlib pandas
 </div><div class="code-block" data-lang="python">
 import os
@@ -24,7 +24,7 @@ import math
 import tiktoken
 import torch
 import torch.nn as nn
-</div></section><section class="chapter"><h2 id="hyperparameters" data-toc="hyperparameters">Hyperparametersの設定</h2><p id="66441473_445">Hyperparametersは、訓練中にデータから学ぶことができないモデルの外部設定です。</p><p id="66441473_446">これらは訓練プロセスが始まる前に設定され、訓練アルゴリズムの振る舞いと訓練されたモデルの性能を制御する上で重要な役割を果たします。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="hyperparameters" data-toc="hyperparameters">Hyperparametersの設定</h2><p id="4ff20e33_13">Hyperparametersは、訓練中にデータから学ぶことができないモデルの外部設定です。</p><p id="4ff20e33_14">これらは訓練プロセスが始まる前に設定され、訓練アルゴリズムの振る舞いと訓練されたモデルの性能を制御する上で重要な役割を果たします。</p><div class="code-block" data-lang="python">
 # Hyperparameters
 batch_size = 4  # How many batches per training step
 context_length = 16  # Length of the token chunk each batch
@@ -40,7 +40,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Instead of using the 
 
 TORCH_SEED = 1337
 torch.manual_seed(TORCH_SEED)
-</div></section><section class="chapter"><h2 id="dataset" data-toc="dataset">Datasetの準備</h2><p id="66441473_448">例にあるように、トレーニングには小規模なデータセットを使用します。</p><p id="66441473_449">このデータセットは、セールスに関する教科書の内容が含まれているテキストファイルです。</p><p id="66441473_450">このテキストファイルを使用して、セールステキストを生成できる言語モデルをトレーニングします。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="dataset" data-toc="dataset">Datasetの準備</h2><p id="4ff20e33_16">例にあるように、トレーニングには小規模なデータセットを使用します。</p><p id="4ff20e33_17">このデータセットは、セールスに関する教科書の内容が含まれているテキストファイルです。</p><p id="4ff20e33_18">このテキストファイルを使用して、セールステキストを生成できる言語モデルをトレーニングします。</p><div class="code-block" data-lang="python">
 # download a sample txt file from https://huggingface.co/datasets/goendalf666/sales-textbook_for_convincing_and_selling/raw/main/sales_textbook.txt
 if not os.path.exists('sales_textbook.txt'):
     url = 'https://huggingface.co/datasets/goendalf666/sales-textbook_for_convincing_and_selling/raw/main/sales_textbook.txt'
@@ -49,7 +49,7 @@ if not os.path.exists('sales_textbook.txt'):
 
 with open('sales_textbook.txt', 'r', encoding='utf-8') as f:
     text = f.read()
-</div></section><section class="chapter"><h2 id="step-1" data-toc="step-1">Step 1: トーク化</h2><p id="66441473_452">データセットをトークン化 <a href="https://github.com/openai/tiktoken" id="66441473_453" data-external="true" rel="noopener noreferrer">tiktoken</a> ライブラリを使用します。</p><p id="66441473_454">このライブラリは高速で軽量なトークナイザーで、テキストをトークンにトークン化するために使用できます。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-1" data-toc="step-1">Step 1: トーク化</h2><p id="4ff20e33_20">データセットをトークン化 <a href="https://github.com/openai/tiktoken" id="4ff20e33_21" data-external="true" rel="noopener noreferrer">tiktoken</a> ライブラリを使用します。</p><p id="4ff20e33_22">このライブラリは高速で軽量なトークナイザーで、テキストをトークンにトークン化するために使用できます。</p><div class="code-block" data-lang="python">
 # Using TikToken to tokenize the source text
 encoding = tiktoken.get_encoding(&quot;cl100k_base&quot;)
 tokenized_text = encoding.encode(text) # size of tokenized source text is 77,919
@@ -60,11 +60,11 @@ print(f&quot;Tokenized text size: {len(tokenized_text)}&quot;)
 print(f&quot;Vocabulary size: {vocab_size}&quot;)
 print(f&quot;The maximum value in the tokenized text is: {max_token_value}&quot;)
 
-</div><p id="66441473_456">プリントされた出力:</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_24">プリントされた出力:</p><div class="code-block" data-lang="plaintext">
 Tokenized text size: 77919
 Vocabulary size: 3771
 The maximum value in the tokenized text is: 100069
-</div></section><section class="chapter"><h2 id="step-2" data-toc="step-2">Step 2: 単語の埋め込み</h2><p id="66441473_458">データセットをトレーニングセットとバリデーションセットに分割します。</p><p id="66441473_459">トレーニングセットはモデルのトレーニングに使用され、バリデーションセットはモデルの性能を評価するために使用されます。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-2" data-toc="step-2">Step 2: 単語の埋め込み</h2><p id="4ff20e33_26">データセットをトレーニングセットとバリデーションセットに分割します。</p><p id="4ff20e33_27">トレーニングセットはモデルのトレーニングに使用され、バリデーションセットはモデルの性能を評価するために使用されます。</p><div class="code-block" data-lang="python">
 # Split train and validation
 split_idx = int(len(tokenized_text) * 0.8)
 train_data = tokenized_text[:split_idx]
@@ -77,20 +77,20 @@ idxs = torch.randint(low=0, high=len(data) - context_length, size=(batch_size,))
 x_batch = torch.stack([data[idx:idx + context_length] for idx in idxs])
 y_batch = torch.stack([data[idx + 1:idx + context_length + 1] for idx in idxs])
 print(x_batch.shape, x_batch.shape)
-</div><p id="66441473_461">プリントされた出力 (レーニング入力 <span class="control" id="66441473_462">x</span> と <span class="control" id="66441473_463">y</span> の形状):</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_29">プリントされた出力 (レーニング入力 <span class="control" id="4ff20e33_30">x</span> と <span class="control" id="4ff20e33_31">y</span> の形状):</p><div class="code-block" data-lang="plaintext">
 torch.Size([4, 16]) torch.Size([4, 16])
-</div></section><section class="chapter"><h2 id="step-3" data-toc="step-3">Step 3: 位置エンコーディング</h2><p id="66441473_465">入力トークンをベクトルに変換するために、シンプルな埋め込みレイヤーを使用します。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-3" data-toc="step-3">Step 3: 位置エンコーディング</h2><p id="4ff20e33_33">入力トークンをベクトルに変換するために、シンプルな埋め込みレイヤーを使用します。</p><div class="code-block" data-lang="python">
 # Define Token Embedding look-up table
 token_embedding_lookup_table = nn.Embedding(max_token_value, d_model)
 
 # Get X and Y embedding
 x = token_embedding_lookup_table(x_batch.data)
 y = token_embedding_lookup_table(y_batch.data)
-</div><p id="66441473_467">現在、入力 x と y の両方とも形状(batch_size, context_length, d_model)になっています。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_35">現在、入力 x と y の両方とも形状(batch_size, context_length, d_model)になっています。</p><div class="code-block" data-lang="python">
 # Get x and y embedding
 x = token_embedding_lookup_table(x_batch.data) # [4, 16, 64] [batch_size, context_length, d_model]
 y = token_embedding_lookup_table(y_batch.data)
-</div><section class="chapter"><h3 id="66441473_469" data-toc="66441473_469">位置エンベディングの適用</h3><p id="66441473_470">元の論文で説明されているように、位置エンベディングテーブルを生成するためにサインとコサインを使用し、 これらの位置情報を入力埋め込みトークンに加えます。</p><div class="code-block" data-lang="python">
+</div><section class="chapter"><h3 id="4ff20e33_37" data-toc="4ff20e33_37">位置エンベディングの適用</h3><p id="4ff20e33_38">元の論文で説明されているように、位置エンベディングテーブルを生成するためにサインとコサインを使用し、 これらの位置情報を入力埋め込みトークンに加えます。</p><div class="code-block" data-lang="python">
 # Define Position Encoding look-up table
 position_encoding_lookup_table = torch.zeros(context_length, d_model) # initial with zeros with shape (context_length, d_model)
 position = torch.arange(0, context_length, dtype=torch.float).unsqueeze(1)
@@ -101,9 +101,9 @@ position_encoding_lookup_table[:, 1::2] = torch.cos(position * div_term)
 position_encoding_lookup_table = position_encoding_lookup_table.unsqueeze(0).expand(batch_size, -1, -1) #add batch to the first dimension
 
 print(&quot;Position Encoding Look-up Table: &quot;, position_encoding_lookup_table.shape)
-</div><p id="66441473_472">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_40">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
 Position Encoding Look-up Table:  torch.Size([4, 16, 64])
-</div><p id="66441473_474">その後、入力埋め込みベクトルに位置エンコーディングを加えます。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_42">その後、入力埋め込みベクトルに位置エンコーディングを加えます。</p><div class="code-block" data-lang="python">
 # Add positional encoding into the input embedding vector
 input_embedding_x = x + position_encoding_lookup_table # [4, 16, 64] [batch_size, context_length, d_model]
 input_embedding_y = y + position_encoding_lookup_table
@@ -112,7 +112,7 @@ X = input_embedding_x
 
 x_plot = input_embedding_x[0].detach().cpu().numpy()
 print(&quot;Final Input Embedding of x: \n&quot;, pd.DataFrame(x_plot))
-</div><p id="66441473_476">これで、トランスフォーマーブロックに供給される値である <span class="control" id="66441473_477">final input embedding of X</span> を取得しました。</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_44">これで、トランスフォーマーブロックに供給される値である <span class="control" id="4ff20e33_45">final input embedding of X</span> を取得しました。</p><div class="code-block" data-lang="plaintext">
 Final Input Embedding of x: 
            0         1         2         3         4         5         6         7         8         9   ...        54        55        56        57        58        59        60        61        62        63
 0  -1.782388  1.200549 -0.177262  0.278616 -1.322919  0.929397 -0.178307  1.453488 -0.216367 -2.049190  ... -0.009743  2.694576 -0.592321  1.235002  1.137691  1.076938 -1.583359  1.994682 -0.411284  2.365598
@@ -133,7 +133,7 @@ Final Input Embedding of x:
 15  0.301521  0.997564 -0.672755 -1.215677  0.949777  0.474997 -0.279164  1.144048 -1.059472  0.068650  ...  0.796498 -1.032138  0.977697  0.790623  0.725540  1.646803  1.253047  0.296801  0.798098  2.022164
 
 [16 rows x 64 columns]
-</div><p id="66441473_479">注：yの埋め込みベクトルはxと同じ形状になります。</p></section></section><section class="chapter"><h2 id="step-4" data-toc="step-4">Step 4: トランスフォーマーブロック</h2><section class="chapter"><h3 id="4-1" data-toc="4-1">4.1 マルチヘッドアテンションの概要</h3><p id="66441473_480">マルチヘッドアテンションの図を再度見てみましょう。</p><figure id="66441473_481"><img alt="Multi-head Attention" src="images/attention-block-step.png" title="Multi-head Attention" width="500" height="533"></figure><p id="66441473_482">入力埋め込み <span class="control" id="66441473_483">X</span> を取得したので、マルチヘッドアテンションブロックの実装を開始できます。</p><p id="66441473_484">マルチヘッドアテンションブロックを実装するには、いくつかのステップがあります。一つずつコード化していきましょう。</p></section><section class="chapter"><h3 id="4-2-q-k-v" data-toc="4-2-q-k-v">4.2 Q,K,Vの準備</h3><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_47">注：yの埋め込みベクトルはxと同じ形状になります。</p></section></section><section class="chapter"><h2 id="step-4" data-toc="step-4">Step 4: トランスフォーマーブロック</h2><section class="chapter"><h3 id="4-1" data-toc="4-1">4.1 マルチヘッドアテンションの概要</h3><p id="4ff20e33_48">マルチヘッドアテンションの図を再度見てみましょう。</p><figure id="4ff20e33_49"><img alt="Multi-head Attention" src="images/attention-block-step.png" title="Multi-head Attention" width="500" height="533"></figure><p id="4ff20e33_50">入力埋め込み <span class="control" id="4ff20e33_51">X</span> を取得したので、マルチヘッドアテンションブロックの実装を開始できます。</p><p id="4ff20e33_52">マルチヘッドアテンションブロックを実装するには、いくつかのステップがあります。一つずつコード化していきましょう。</p></section><section class="chapter"><h3 id="4-2-q-k-v" data-toc="4-2-q-k-v">4.2 Q,K,Vの準備</h3><div class="code-block" data-lang="python">
 # Prepare Query, Key, Value for Multi-head Attention
 
 query = key = value = X # [4, 16, 64] [batch_size, context_length, d_model]
@@ -151,23 +151,23 @@ K = K.view(batch_size, -1, num_heads, d_model // num_heads)  #[4, 16, 4, 16]
 
 V = Wv(value) #[4, 16, 64]
 V = V.view(batch_size, -1, num_heads, d_model // num_heads)  #[4, 16, 4, 16]
-</div><p id="66441473_486">その後、 Q, K, V to [batch_size, num_heads, context_length, head_size] の形に再構成し、さらなる計算のために準備します。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_54">その後、 Q, K, V to [batch_size, num_heads, context_length, head_size] の形に再構成し、さらなる計算のために準備します。</p><div class="code-block" data-lang="python">
 # Transpose q,k,v from [batch_size, context_length, num_heads, head_size] to [batch_size, num_heads, context_length, head_size]
 # The reason is that treat each batch with &quot;num_heads&quot; as its first dimension.
 Q = Q.transpose(1, 2) # [4, 4, 16, 16]
 K = K.transpose(1, 2) # [4, 4, 16, 16]
 V = V.transpose(1, 2) # [4, 4, 16, 16]
-</div></section><section class="chapter"><h3 id="4-3-qk-t" data-toc="4-3-qk-t">4.3 QK^T アテンションの計算</h3><p id="66441473_488">これは torch.matmul 関数を使用することで非常に簡単に行えます。</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h3 id="4-3-qk-t" data-toc="4-3-qk-t">4.3 QK^T アテンションの計算</h3><p id="4ff20e33_56">これは torch.matmul 関数を使用することで非常に簡単に行えます。</p><div class="code-block" data-lang="python">
 # Calculate the attention score betwee Q and K^T
 attention_score = torch.matmul(Q, K.transpose(-2, -1))
 </div></section><section class="chapter"><h3 id="4-4" data-toc="4-4">4.4 スケール</h3><div class="code-block" data-lang="python">
 # Then Scale the attention score by the square root of the head size
 attention_score = attention_score / math.sqrt(d_model // num_heads)
 
-</div><p id="66441473_491">実際には、4.3 と 4.4 を一行で書き換えることができます。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_59">実際には、4.3 と 4.4 を一行で書き換えることができます。</p><div class="code-block" data-lang="python">
 attention_score = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_model // num_heads) # [4, 4, 16, 16] #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
-</div><p id="66441473_493">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_61">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
           0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 0   0.105279 -0.365092 -0.339839 -0.650558 -0.464043 -0.531401  0.437939 -0.650732 -0.616331 -0.429000 -0.332607  0.080401  0.000111 -0.601670 -0.783942  0.147967
 1  -0.302636  0.525435  0.863502 -0.218539  0.600691 -0.413970  0.408111  0.765074 -0.376257  0.233526  0.915393 -0.263153  0.683832  0.430964  0.802033  0.281169
@@ -189,7 +189,7 @@ print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
 # Apply Mask to attention scores
 attention_score = attention_score.masked_fill(torch.triu(torch.ones(attention_score.shape[-2:]), diagonal=1).bool(), float('-inf')) #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
-</div><p id="66441473_496">プリントされた出力 <span class="emphasis" id="66441473_497">(バッチその1のケース)</span>:</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_64">プリントされた出力 <span class="emphasis" id="4ff20e33_65">(バッチその1のケース)</span>:</p><div class="code-block" data-lang="plaintext">
           0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 
 ```text
@@ -210,11 +210,11 @@ print(pd.DataFrame(attention_score[0][0].detach().cpu().numpy()))
 13  0.550975  0.313643 -0.074468  0.519995 -0.149188 -0.565922  0.199527 -0.738029  0.142203 -0.164007 -0.494203  0.570010 -0.579608 -0.198923      -inf      -inf
 14 -0.616347 -0.812240  0.245260  0.167278  0.913596 -0.493119  1.139083 -0.300623 -0.399155  0.200648 -0.114634  0.147219 -0.829207  0.363519 -0.325846      -inf
 15 -0.145391  0.514632 -0.296119 -0.038103 -0.187110 -0.634636  0.509902 -0.338267 -0.231534 -0.007304 -0.432799  0.339123  0.248173 -0.242426 -0.595925 -0.442379
-</div><p id="66441473_499">上記の通り、対角線と上三角形は-infでマスクされています。</p></section><section class="chapter"><h3 id="4-6" data-toc="4-6">4.6 ソフトマックス</h3><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_67">上記の通り、対角線と上三角形は-infでマスクされています。</p></section><section class="chapter"><h3 id="4-6" data-toc="4-6">4.6 ソフトマックス</h3><div class="code-block" data-lang="python">
 # Softmax the attention score
 attention_score = torch.softmax(attention_score, dim=-1)  #[4, 4, 16, 16] [batch_size, num_heads, context_length, context_length]
 print(pd.DataFrame(attention_score.detach().cpu().numpy()))
-</div><p id="66441473_501">プリントされた出力 <span class="emphasis" id="66441473_502">(バッチその1のケース)</span>:</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_69">プリントされた出力 <span class="emphasis" id="4ff20e33_70">(バッチその1のケース)</span>:</p><div class="code-block" data-lang="plaintext">
           0         1         2         3         4         5         6         7         8         9         10        11        12        13        14        15
 0   0.062604  0.062472  0.062478  0.062419  0.062452  0.062439  0.062748  0.062419  0.062424  0.062459  0.062479  0.062595  0.062568  0.062427  0.062399  0.062619
 1   0.062377  0.062529  0.062643  0.062387  0.062551  0.062364  0.062499  0.062605  0.062368  0.062460  0.062664  0.062381  0.062577  0.062505  0.062619  0.062470
@@ -232,22 +232,22 @@ print(pd.DataFrame(attention_score.detach().cpu().numpy()))
 13  0.062685  0.062591  0.062482  0.062671  0.062466  0.062395  0.062554  0.062374  0.062538  0.062463  0.062405  0.062693  0.062393  0.062456  0.062360  0.062472
 14  0.062372  0.062352  0.062530  0.062509  0.062806  0.062387  0.062958  0.062414  0.062400  0.062518  0.062447  0.062504  0.062350  0.062566  0.062410  0.062476
 15  0.062479  0.062693  0.062448  0.062504  0.062470  0.062394  0.062691  0.062440  0.062460  0.062512  0.062424  0.062620  0.062588  0.062458  0.062399  0.062422
-</div><p id="66441473_504">ソフトマックス関数を適用した後、スコアは0から1の間になり、各行の合計は1になります。</p></section><section class="chapter"><h3 id="4-7-v" data-toc="4-7-v">4.7 V アテンションの計算</h3><p id="66441473_505">最後に、アテンションスコアに <span class="control" id="66441473_506">V</span> を掛けて、マルチヘッドアテンションブロックの出力を得ます。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_72">ソフトマックス関数を適用した後、スコアは0から1の間になり、各行の合計は1になります。</p></section><section class="chapter"><h3 id="4-7-v" data-toc="4-7-v">4.7 V アテンションの計算</h3><p id="4ff20e33_73">最後に、アテンションスコアに <span class="control" id="4ff20e33_74">V</span> を掛けて、マルチヘッドアテンションブロックの出力を得ます。</p><div class="code-block" data-lang="python">
 # Calculate the V attention output
 A = torch.matmul(attention_score, V) # [4, 4, 16, 16] [batch_size, num_heads, context_length, head_size]
 print(attention_output.shape)
-</div><p id="66441473_508">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
+</div><p id="4ff20e33_76">プリントされた出力：</p><div class="code-block" data-lang="plaintext">
 torch.Size([4, 4, 16, 16])
-</div><p id="66441473_510"><span class="emphasis" id="66441473_511">注: 現在の形状は [4, 4, 16, 16] すなわち [batch_size, num_heads, context_length, head_size]　です。</span></p></section><section class="chapter"><h3 id="4-8" data-toc="4-8">4.8 結合と出力</h3><p id="66441473_512"><a href="http://localhost:63342/llm-zero-to-hero/preview/transformer-architecture.html#4-8-concatenate-and-output" id="66441473_513" data-external="true" rel="noopener noreferrer">前回の記事</a> で述べたように、マルチヘッドアテンションブロックの出力を結合して線形レイヤーに供給する必要があります。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_78"><span class="emphasis" id="4ff20e33_79">注: 現在の形状は [4, 4, 16, 16] すなわち [batch_size, num_heads, context_length, head_size]　です。</span></p></section><section class="chapter"><h3 id="4-8" data-toc="4-8">4.8 結合と出力</h3><p id="4ff20e33_80"><a href="http://localhost:63342/llm-zero-to-hero/preview/transformer-architecture.html#4-8-concatenate-and-output" id="4ff20e33_81" data-external="true" rel="noopener noreferrer">前回の記事</a> で述べたように、マルチヘッドアテンションブロックの出力を結合して線形レイヤーに供給する必要があります。</p><div class="code-block" data-lang="python">
 A = A.transpose(1, 2) # [4, 16, 4, 16] [batch_size, context_length, num_heads, head_size]
 A = A.reshape(batch_size, -1, d_model) # [4, 16, 64] [batch_size, context_length, d_model]
-</div><p id="66441473_515">_注: 現在の形状は [4, 16, 64] すなわち [batch_size, context_length, d_model] です。</p><p id="66441473_516">これで [64,64] の線形レイヤー <span class="control" id="66441473_517">Wo</span> <span class="emphasis" id="66441473_518">(トレーニング中に学習される重み)</span> を適用し、 マルチヘッドアテンションブロックの最終出力を得ることができます：</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_83">_注: 現在の形状は [4, 16, 64] すなわち [batch_size, context_length, d_model] です。</p><p id="4ff20e33_84">これで [64,64] の線形レイヤー <span class="control" id="4ff20e33_85">Wo</span> <span class="emphasis" id="4ff20e33_86">(トレーニング中に学習される重み)</span> を適用し、 マルチヘッドアテンションブロックの最終出力を得ることができます：</p><div class="code-block" data-lang="python">
 # Define the output weight matrix
 Wo = nn.Linear(d_model, d_model)
 output = Wo(A) # [4, 16, 64] [batch_size, context_length, d_model]
 
 print(output.shape)
-</div><p id="66441473_520">出力をプリントすると、形状は元の入力埋め込みの形状である [4, 16, 64] に戻ります。</p></section></section><section class="chapter"><h2 id="step-5" data-toc="step-5">Step 5: 残差接続とレイヤー正規化</h2><p id="66441473_521">マルチヘッドアテンションブロックの出力が得られたので、残差接続とレイヤー正規化を適用できます。</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_88">出力をプリントすると、形状は元の入力埋め込みの形状である [4, 16, 64] に戻ります。</p></section></section><section class="chapter"><h2 id="step-5" data-toc="step-5">Step 5: 残差接続とレイヤー正規化</h2><p id="4ff20e33_89">マルチヘッドアテンションブロックの出力が得られたので、残差接続とレイヤー正規化を適用できます。</p><div class="code-block" data-lang="python">
 # Add residual connection
 output = output + X
 
@@ -260,16 +260,16 @@ output = nn.Linear(d_model, d_model * 4)(output)
 output = nn.ReLU()(output)
 output = nn.Linear(d_model * 4, d_model)(output)
 output = torch.dropout(output, p=dropout, train=True)
-</div><p id="66441473_524">最後の残差接続とレイヤー正規化を追加します：</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_92">最後の残差接続とレイヤー正規化を追加します：</p><div class="code-block" data-lang="python">
 # Add residual connection
 output = output + X
 # Add Layer Normalization
 layer_norm = nn.LayerNorm(d_model)
 output = layer_norm(output)
-</div></section><section class="chapter"><h2 id="step-7-4-6" data-toc="step-7-4-6">Step 7: ステップ4から6を繰り返す</h2><p id="66441473_526">上記で完了したのは、たった一つのトランスフォーマーブロックです。 実際には、複数のトランスフォーマーブロックを積み重ねて、トランスフォーマーデコーダを形成します。</p><p id="66441473_527">実際には、コードをクラスにパッケージ化し、PyTorchのnn.Moduleを使用してトランスフォーマーデコーダを構築するべきです。 しかし、デモンストレーションのため、一つのブロックのままにしておきます。</p></section><section class="chapter"><h2 id="step-8" data-toc="step-8">Step 8: 出力確率</h2><p id="66441473_528">最終的な線形レイヤーを適用して、ロジットを取得します：</p><div class="code-block" data-lang="python">
+</div></section><section class="chapter"><h2 id="step-7-4-6" data-toc="step-7-4-6">Step 7: ステップ4から6を繰り返す</h2><p id="4ff20e33_94">上記で完了したのは、たった一つのトランスフォーマーブロックです。 実際には、複数のトランスフォーマーブロックを積み重ねて、トランスフォーマーデコーダを形成します。</p><p id="4ff20e33_95">実際には、コードをクラスにパッケージ化し、PyTorchのnn.Moduleを使用してトランスフォーマーデコーダを構築するべきです。 しかし、デモンストレーションのため、一つのブロックのままにしておきます。</p></section><section class="chapter"><h2 id="step-8" data-toc="step-8">Step 8: 出力確率</h2><p id="4ff20e33_96">最終的な線形レイヤーを適用して、ロジットを取得します：</p><div class="code-block" data-lang="python">
 logits = nn.Linear(d_model, max_token_value)(output)
 print(pd.DataFrame(logits[0].detach().cpu().numpy()))
-</div><p id="66441473_530">最後のステップは、各トークンの確率を得るために、ロジットに ソフトマックス を適用することです：</p><div class="code-block" data-lang="python">
+</div><p id="4ff20e33_98">最後のステップは、各トークンの確率を得るために、ロジットに ソフトマックス を適用することです：</p><div class="code-block" data-lang="python">
 # torch.softmax usually used during inference, during training we use torch.nn.CrossEntropyLoss
 # but for illustration purpose, we'll use torch.softmax here
 probabilities = torch.softmax(logits, dim=-1)
@@ -294,4 +294,4 @@ probabilities = torch.softmax(logits, dim=-1)
 
 [16 rows x 100069 columns]
 
-</div><p id="66441473_533"><span class="emphasis" id="66441473_534">注：ここで得られるものは、全語彙における各トークンの確率を表す巨大な行列で、 形状は [16, 100069] です。</span></p></section><section class="chapter"><h2 id="66441473_535" data-toc="66441473_535">完全な動作コード</h2><p id="66441473_536">実際には、複数のトランスフォーマーブロックが積み重ねられ、一つのデコーディング処理を行います。</p><p id="66441473_537">そしてトレーニング中、出力トークンは正解トークンと比較され、損失を計算します。そして、ハイパーパラメータで定義された <span class="control" id="66441473_538">max_iters</span> 回の回数だけプロセスを繰り返します。</p><p id="66441473_539">私の <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="66441473_540" data-external="true" rel="noopener noreferrer">GitHub</a> に、完全に動作するトランスフォーマーデコーダのコードがありますので、ご覧になってください。</p></section><div class="last-modified">Last modified: 03 February 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="transformer-architecture-jp.html" class="navigation-links__prev">トランスフォーマーアーキテクチャ</a><a href="reference-jp.html" class="navigation-links__next">リソース・参考</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.js"></script></body></html>
+</div><p id="4ff20e33_101"><span class="emphasis" id="4ff20e33_102">注：ここで得られるものは、全語彙における各トークンの確率を表す巨大な行列で、 形状は [16, 100069] です。</span></p></section><section class="chapter"><h2 id="4ff20e33_103" data-toc="4ff20e33_103">完全な動作コード</h2><p id="4ff20e33_104">実際には、複数のトランスフォーマーブロックが積み重ねられ、一つのデコーディング処理を行います。</p><p id="4ff20e33_105">そしてトレーニング中、出力トークンは正解トークンと比較され、損失を計算します。そして、ハイパーパラメータで定義された <span class="control" id="4ff20e33_106">max_iters</span> 回の回数だけプロセスを繰り返します。</p><p id="4ff20e33_107">私の <a href="https://github.com/waylandzhang/Transformer-from-scratch" id="4ff20e33_108" data-external="true" rel="noopener noreferrer">GitHub</a> に、完全に動作するトランスフォーマーデコーダのコードがありますので、ご覧になってください。</p></section><div class="last-modified">Last modified: 22 February 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="transformer-architecture-jp.html" class="navigation-links__prev">トランスフォーマーアーキテクチャ</a><a href="reference-jp.html" class="navigation-links__next">リソース・参考</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b205/app.js"></script></body></html>
